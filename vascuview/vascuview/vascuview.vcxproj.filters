@@ -50,6 +50,9 @@
     <ClCompile Include="GeneratedFiles\qrc_vascuview.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="vmtkImageReader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="vascuview.h">
@@ -65,6 +68,9 @@
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_vascuview.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vmtkImageReader.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
