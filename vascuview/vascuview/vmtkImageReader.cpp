@@ -1,7 +1,7 @@
 
 #include <vmtkImageReader.h>
 #include <vtkvmtkDICOMImageReader.h>
-
+#include <vtkSmartPointer.h>
 
 vmtkImageReader::vmtkImageReader()
 {
@@ -12,10 +12,11 @@ vmtkImageReader::~vmtkImageReader()
 
 }
 
-vtkImageData* vmtkImageReader::ReadDICOMDirectory(const char* directoryName,int autoOrientImage)
+vtkSmartPointer<vtkImageData> vmtkImageReader::ReadDICOMDirectory(const char* directoryName,int autoOrientImage)
 {
-	//vtkvmtkDICOMImageReader 的构造方式很有可能是单例模式
-	vtkvmtkDICOMImageReader* reader = vtkvmtkDICOMImageReader::New();
+
+	
+	vtkSmartPointer<vtkvmtkDICOMImageReader> reader = vtkSmartPointer<vtkvmtkDICOMImageReader>::New();
 
 	reader->SetDirectoryName(directoryName);
 
@@ -23,9 +24,9 @@ vtkImageData* vmtkImageReader::ReadDICOMDirectory(const char* directoryName,int 
 
 	reader->Update();
 
-	vtkImageData* data = reader->GetOutput();
+	vtkSmartPointer<vtkImageData> data = reader->GetOutput();
 	
-
+	
 	return data;
 	
 }

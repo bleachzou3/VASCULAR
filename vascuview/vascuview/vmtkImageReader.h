@@ -10,7 +10,7 @@ class vmtkImageReader
 public:
 	vmtkImageReader();
 	~vmtkImageReader();
-	vtkImageData* ReadDICOMDirectory(const char* directoryName,int autoOrientImage);
+	vtkSmartPointer<vtkImageData> ReadDICOMDirectory(const char* directoryName,int autoOrientImage);
 
 
 
