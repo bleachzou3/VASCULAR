@@ -1,4 +1,4 @@
-#include <vmtkRenderer.h>
+#include "vmtkRenderer.h"
 vmtkRenderer::vmtkRenderer(vtkSmartPointer<vtkRenderWindow>renw)
 {
 	Renderer = vtkSmartPointer<vtkRenderer>::New();

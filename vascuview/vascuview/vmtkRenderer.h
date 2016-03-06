@@ -10,7 +10,7 @@
 *@author 邹王忠
 此类对应着vmtk-master下的vmtkrenderer.py文件
 */
-class vmtkRenderer
+class vmtkRenderer:public vtkObjectBase
 {
 public:
 	/*

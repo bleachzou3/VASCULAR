@@ -93,6 +93,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="vascuview.cpp" />
     <ClCompile Include="vmtkImageReader.cpp" />
+    <ClCompile Include="vmtkImageViewer.cpp" />
     <ClCompile Include="vmtkRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -122,6 +123,7 @@
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_vascuview.h" />
     <ClInclude Include="vmtkImageReader.h" />
+    <ClInclude Include="vmtkImageViewer.h" />
     <ClInclude Include="vmtkRenderer.h" />
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,5 @@
 
-#include <vmtkImageReader.h>
+#include "vmtkImageReader.h"
 #include <vtkvmtkDICOMImageReader.h>
 #include <vtkSmartPointer.h>
 
