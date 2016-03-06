@@ -1,5 +1,5 @@
 #include "vascuview.h"
-
+#include <vtkSmartPointer.h>
 vascuview::vascuview(QWidget *parent)
 	: QMainWindow(parent)
 {
@@ -8,5 +8,5 @@ vascuview::vascuview(QWidget *parent)
 
 vascuview::~vascuview()
 {
-
+	
 }
