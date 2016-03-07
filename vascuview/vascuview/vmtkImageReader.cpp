@@ -3,6 +3,10 @@
 #include <vtkvmtkDICOMImageReader.h>
 #include <vtkSmartPointer.h>
 
+#include <vtkObjectFactory.h>
+
+vtkStandardNewMacro(vmtkImageReader);
+
 vmtkImageReader::vmtkImageReader()
 {
 

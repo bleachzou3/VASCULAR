@@ -1,13 +1,9 @@
 #include "vmtkRenderer.h"
-vmtkRenderer::vmtkRenderer(vtkSmartPointer<vtkRenderWindow>renw)
+#include <vtkObjectFactory.h>
+vtkStandardNewMacro(vmtkRenderer);
+vmtkRenderer::vmtkRenderer()
 {
-	Renderer = vtkSmartPointer<vtkRenderer>::New();
 
-	RenderWindow = renw;
-
-	RenderWindowInteractor = renw->GetInteractor();
-	
-	interactorCamera = vtkSmartPointer<vtkvmtkInteractorStyleTrackballCamera>::New();
 
 	
 }
@@ -15,9 +11,16 @@ vmtkRenderer::~vmtkRenderer()
 {
 }
 
-void vmtkRenderer::Initialize()
+void vmtkRenderer::Initialize(vtkSmartPointer<vtkRenderWindow> renw)
 {
 	
+	Renderer = vtkSmartPointer<vtkRenderer>::New();
+
+	RenderWindow = renw;
+
+	RenderWindowInteractor = renw->GetInteractor();
+	
+	interactorCamera = vtkSmartPointer<vtkvmtkInteractorStyleTrackballCamera>::New();
 
 	//能改变颜色
 	//Renderer->SetBackground();

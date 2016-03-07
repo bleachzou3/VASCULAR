@@ -1,19 +1,27 @@
 
 
-#include <vtkImageData.h>
+
 #include <string>
-#include <vtkObjectBase.h>
+
 #include <vtkSmartPointer.h>
+#include <vtkSetGet.h>
+#include <vtkObject.h>
+#include <vtkImageData.h>
 #ifndef VMTK_IMAGE_READER_HPP_
 #define VMTK_IMAGE_READER_HPP_
 
-class vmtkImageReader:public vtkObjectBase
+
+class vmtkImageReader:public vtkObject
 {
-public:
+protected:
 	vmtkImageReader();
 
 	~vmtkImageReader();
+public:
+	vtkTypeMacro(vmtkImageReader,vtkObject);
 
+	static vmtkImageReader* New();
+	
 	vtkSmartPointer<vtkImageData> ReadDICOMDirectory(const char* directoryName,int autoOrientImage);
 
 
