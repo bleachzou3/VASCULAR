@@ -36,6 +36,12 @@ public:
 	static vmtkRenderer* New();
 	void Initialize(vtkSmartPointer<vtkRenderWindow> ren);
 
+	vtkSmartPointer<vtkRenderWindowInteractor>  getRenderWindowInteractor();
+
+	void Render(int interactive = 1);
+
+	void Deallocate();
+
 };
 
 #endif

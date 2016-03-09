@@ -39,3 +39,28 @@ void vmtkRenderer::Initialize(vtkSmartPointer<vtkRenderWindow> renw)
 
 
 }
+
+vtkSmartPointer<vtkRenderWindowInteractor>  vmtkRenderer::getRenderWindowInteractor()
+{
+	return RenderWindowInteractor;
+}
+
+void  vmtkRenderer::Render(int interactive)
+{
+	if( interactive)
+	{
+		RenderWindowInteractor->Initialize();
+	}
+
+	RenderWindow->Render();
+
+	if(interactive)
+		RenderWindowInteractor->Start();
+}
+
+void vmtkRenderer::Deallocate()
+{
+	RenderWindowInteractor->Delete();
+	RenderWindow->Delete();
+	RenderWindow->Delete();
+}
