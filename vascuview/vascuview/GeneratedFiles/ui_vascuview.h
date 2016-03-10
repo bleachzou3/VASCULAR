@@ -28,6 +28,7 @@ QT_BEGIN_NAMESPACE
 class Ui_vascuviewClass
 {
 public:
+    QAction *actionOpenImaFile;
     QWidget *centralWidget;
     QVTKWidget *qvtkWidget_x;
     QVTKWidget *qvtkWidget_y;
@@ -48,6 +49,11 @@ public:
         if (vascuviewClass->objectName().isEmpty())
             vascuviewClass->setObjectName(QStringLiteral("vascuviewClass"));
         vascuviewClass->resize(1614, 919);
+        actionOpenImaFile = new QAction(vascuviewClass);
+        actionOpenImaFile->setObjectName(QStringLiteral("actionOpenImaFile"));
+        QIcon icon;
+        icon.addFile(QStringLiteral(":/vascuview/picture/openfile.jpg"), QSize(), QIcon::Normal, QIcon::Off);
+        actionOpenImaFile->setIcon(icon);
         centralWidget = new QWidget(vascuviewClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         qvtkWidget_x = new QVTKWidget(centralWidget);
@@ -92,10 +98,11 @@ public:
         mainToolBar = new QToolBar(vascuviewClass);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
         vascuviewClass->addToolBar(Qt::TopToolBarArea, mainToolBar);
-        vascuviewClass->insertToolBarBreak(mainToolBar);
         statusBar = new QStatusBar(vascuviewClass);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         vascuviewClass->setStatusBar(statusBar);
+
+        mainToolBar->addAction(actionOpenImaFile);
 
         retranslateUi(vascuviewClass);
 
@@ -108,6 +115,10 @@ public:
     void retranslateUi(QMainWindow *vascuviewClass)
     {
         vascuviewClass->setWindowTitle(QApplication::translate("vascuviewClass", "vascuview", 0));
+        actionOpenImaFile->setText(QApplication::translate("vascuviewClass", "openImaFile", 0));
+#ifndef QT_NO_TOOLTIP
+        actionOpenImaFile->setToolTip(QApplication::translate("vascuviewClass", "open a ima file sequence in a directory", 0));
+#endif // QT_NO_TOOLTIP
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("vascuviewClass", "Tab 1", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("vascuviewClass", "Tab 2", 0));
     } // retranslateUi

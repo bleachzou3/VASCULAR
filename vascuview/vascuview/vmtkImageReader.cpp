@@ -29,7 +29,7 @@ vtkSmartPointer<vtkImageData> vmtkImageReader::ReadDICOMDirectory(const char* di
 	reader->Update();
 
 	vtkSmartPointer<vtkImageData> data = reader->GetOutput();
-	
+	 
 	
 	return data;
 	

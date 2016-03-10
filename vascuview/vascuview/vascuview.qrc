@@ -1,4 +1,6 @@
 <RCC>
-    <qresource prefix="vascuview">
-    </qresource>
+  <qresource prefix="vascuview"/>
+  <qresource prefix="/">
+    <file>picture/openfile.png</file>
+  </qresource>
 </RCC>
