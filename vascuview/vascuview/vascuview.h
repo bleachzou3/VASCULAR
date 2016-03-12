@@ -14,6 +14,11 @@ public:
 
 private:
 	Ui::vascuviewClass ui;
+private:
+	void connectActions();
+private slots:
+	//响应打开ima序列的槽函数
+	void  openImaFileDirectory();
 };
 
 #endif // VASCUVIEW_H

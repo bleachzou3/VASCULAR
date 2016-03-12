@@ -48,11 +48,11 @@ public:
     {
         if (vascuviewClass->objectName().isEmpty())
             vascuviewClass->setObjectName(QStringLiteral("vascuviewClass"));
-        vascuviewClass->resize(1614, 919);
+        vascuviewClass->resize(1628, 917);
         actionOpenImaFile = new QAction(vascuviewClass);
         actionOpenImaFile->setObjectName(QStringLiteral("actionOpenImaFile"));
         QIcon icon;
-        icon.addFile(QStringLiteral(":/vascuview/picture/openfile.jpg"), QSize(), QIcon::Normal, QIcon::Off);
+        icon.addFile(QStringLiteral(":/picture/openfile.png"), QSize(), QIcon::Normal, QIcon::Off);
         actionOpenImaFile->setIcon(icon);
         centralWidget = new QWidget(vascuviewClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
@@ -93,7 +93,7 @@ public:
         vascuviewClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(vascuviewClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1614, 21));
+        menuBar->setGeometry(QRect(0, 0, 1628, 21));
         vascuviewClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(vascuviewClass);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
