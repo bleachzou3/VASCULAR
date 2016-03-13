@@ -25,9 +25,9 @@ private:
 
 	vtkSmartPointer<vtkCellPicker> Picker;
 
-	vtkSmartPointer<vtkvmtkImagePlaneWidget> PlaneWidgetX;
-	vtkSmartPointer<vtkvmtkImagePlaneWidget> PlaneWidgetY;
-	vtkSmartPointer<vtkvmtkImagePlaneWidget> PlaneWidgetZ;
+	vtkSmartPointer<vtkImagePlaneWidget> PlaneWidgetX;
+	vtkSmartPointer<vtkImagePlaneWidget> PlaneWidgetY;
+	vtkSmartPointer<vtkImagePlaneWidget> PlaneWidgetZ;
 private:
 	/*
 	*@author≥ı ºªØPicker,PlaneWidgetX,PlaneWidgetY,PlaneWidgetZ
@@ -45,7 +45,9 @@ private:
 
 	int ContinuousCursor;
 
-	int* wholeExtent;
+	int wholeExtent[6];
+
+    int dimension[3];
 
 	int Display;
 

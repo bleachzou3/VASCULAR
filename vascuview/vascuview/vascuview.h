@@ -3,7 +3,8 @@
 
 #include <QtWidgets/QMainWindow>
 #include "ui_vascuview.h"
-
+#include <vtkSmartPointer.h>
+#include <vtkImageData.h>
 class vascuview : public QMainWindow
 {
 	Q_OBJECT
@@ -16,9 +17,13 @@ private:
 	Ui::vascuviewClass ui;
 private:
 	void connectActions();
+	void renderImageData();
 private slots:
 	//响应打开ima序列的槽函数
 	void  openImaFileDirectory();
+	void test();
+private:
+	vtkSmartPointer<vtkImageData> data;
 };
 
 #endif // VASCUVIEW_H

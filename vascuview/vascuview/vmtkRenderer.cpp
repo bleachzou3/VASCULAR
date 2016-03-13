@@ -17,6 +17,11 @@ void vmtkRenderer::Initialize(vtkSmartPointer<vtkRenderWindow> renw)
 	Renderer = vtkSmartPointer<vtkRenderer>::New();
 
 	RenderWindow = renw;
+	double *color =new double[3];
+	color[0] = 0.0;
+	color[1] = 0.1;
+	color[2] = 0.3;
+	Renderer->SetBackground(color);
 
 	RenderWindowInteractor = renw->GetInteractor();
 	
@@ -47,15 +52,19 @@ vtkSmartPointer<vtkRenderWindowInteractor>  vmtkRenderer::getRenderWindowInterac
 
 void  vmtkRenderer::Render(int interactive)
 {
+	/*
 	if( interactive)
 	{
 		RenderWindowInteractor->Initialize();
 	}
 
-	RenderWindow->Render();
 
 	if(interactive)
 		RenderWindowInteractor->Start();
+	*/
+	Renderer->DrawOn();
+	Renderer->ResetCamera();
+	RenderWindow->Render();
 }
 
 void vmtkRenderer::Deallocate()

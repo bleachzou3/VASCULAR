@@ -3,7 +3,9 @@
 #include "vmtkRenderer.h"
 #include <vtkObjectFactory.h>
 #include <vtkPointData.h>
-
+#include <vtkImageSlice.h>
+#include <vtkSmartPointer.h>
+#include <vtkImagePlaneWidget.h>
 vtkStandardNewMacro(vmtkImageViewer);
 
 vmtkImageViewer::vmtkImageViewer()
@@ -18,7 +20,19 @@ vmtkImageViewer::~vmtkImageViewer()
 
 void vmtkImageViewer::BuildView()
 {
+	TextureInterpolation = 1;
+	ContinuousCursor = 0;
+	Display = 1;
+	OwnRenderer = 0;
 
+	Picker = vtkSmartPointer<vtkCellPicker>::New();
+	PlaneWidgetX = vtkSmartPointer<vtkImagePlaneWidget>::New();
+	PlaneWidgetY = vtkSmartPointer<vtkImagePlaneWidget>::New();
+	PlaneWidgetZ = vtkSmartPointer<vtkImagePlaneWidget>::New();
+
+	Picker->SetTolerance(0.005);
+	initWidget();
+	Render->Render();
 }
 
 void vmtkImageViewer::setRender(vtkSmartPointer<vmtkRenderer> ren,vtkSmartPointer<vtkRenderWindow> renw)
@@ -31,7 +45,10 @@ void vmtkImageViewer::setRender(vtkSmartPointer<vmtkRenderer> ren,vtkSmartPointe
 	Image->GetPointData();
 	pa->SetActiveScalars();
 	*/
-    wholeExtent = Image->GetExtent();
+	Image->GetExtent(wholeExtent);
+
+	Image->GetDimensions(dimension);
+	int a;
 	
 	
 }
@@ -39,27 +56,17 @@ void vmtkImageViewer::setRender(vtkSmartPointer<vmtkRenderer> ren,vtkSmartPointe
 void vmtkImageViewer::setImage(vtkSmartPointer<vtkImageData> ima)
 {
 	Image = ima;
-	Image->GetExtent();
+	//Image->GetExtent();
 	
 }
 
 void vmtkImageViewer::initWidget()
 {
-	TextureInterpolation = 1;
-	ContinuousCursor = 0;
-	Display = 1;
-	OwnRenderer = 0;
 
-	Picker = vtkSmartPointer<vtkCellPicker>::New();
-	PlaneWidgetX = vtkSmartPointer<vtkvmtkImagePlaneWidget>::New();
-	PlaneWidgetY = vtkSmartPointer<vtkvmtkImagePlaneWidget>::New();
-	PlaneWidgetZ = vtkSmartPointer<vtkvmtkImagePlaneWidget>::New();
-
-	Picker->SetTolerance(0.005);
 
 	initPlaneWidgetX();
-	initPlaneWidgetY();
-	initPlaneWidgetZ();
+	//initPlaneWidgetY();
+	//initPlaneWidgetZ();
 
 	
 		
@@ -74,11 +81,14 @@ void vmtkImageViewer::initPlaneWidgetX()
 	    PlaneWidgetX->SetResliceInterpolateToLinear();		
 		PlaneWidgetX->SetTextureInterpolate(TextureInterpolation);
 		PlaneWidgetX->SetUseContinuousCursor(ContinuousCursor);
+		
 		PlaneWidgetX->SetInputData(Image);
-
-		PlaneWidgetX->SetSliceIndex(wholeExtent[0]);
+		
 
 		PlaneWidgetX->SetPlaneOrientationToXAxes();
+		PlaneWidgetX->SetSliceIndex(wholeExtent[0]);
+
+		
 		
 		//可选的
 		PlaneWidgetX->DisplayTextOff();
@@ -88,12 +98,12 @@ void vmtkImageViewer::initPlaneWidgetX()
 		PlaneWidgetX->KeyPressActivationOff();
 
 		PlaneWidgetX->SetInteractor(Render->getRenderWindowInteractor());
-
+		
 
 		//可选的
 		PlaneWidgetX->SetMarginSizeX(0.0);
 		PlaneWidgetX->SetMarginSizeY(0.0);
-
+		PlaneWidgetX->SetWindowLevel(0.0,0.0);
 		PlaneWidgetX->On();
         
 
