@@ -45,8 +45,11 @@ private:
 
 	int ContinuousCursor;
 
+	//图像的维度是根据是他算的
 	int wholeExtent[6];
 
+
+	//图像的维度
     int dimension[3];
 
 	int Display;

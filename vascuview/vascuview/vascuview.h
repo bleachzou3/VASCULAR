@@ -5,6 +5,9 @@
 #include "ui_vascuview.h"
 #include <vtkSmartPointer.h>
 #include <vtkImageData.h>
+#include <vtkImageViewer2.h>
+#include <vmtkRenderer.h>
+#include <vmtkImageViewer.h>
 class vascuview : public QMainWindow
 {
 	Q_OBJECT
@@ -24,6 +27,20 @@ private slots:
 	void test();
 private:
 	vtkSmartPointer<vtkImageData> data;
+	vtkSmartPointer<vmtkRenderer> render;	
+	vtkSmartPointer<vmtkImageViewer> viewer;
+
+
+
+
+
+
+
+	//下面两个变量但是为了测试读入图片用的
+	vtkSmartPointer<vtkImageViewer2> m_pImageViewer;
+	vtkSmartPointer< vtkRenderer > m_pRenderder;
+
+
 };
 
 #endif // VASCUVIEW_H

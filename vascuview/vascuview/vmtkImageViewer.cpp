@@ -6,6 +6,8 @@
 #include <vtkImageSlice.h>
 #include <vtkSmartPointer.h>
 #include <vtkImagePlaneWidget.h>
+
+#include <vtkvmtkImagePlaneWidget.h>
 vtkStandardNewMacro(vmtkImageViewer);
 
 vmtkImageViewer::vmtkImageViewer()
@@ -48,7 +50,7 @@ void vmtkImageViewer::setRender(vtkSmartPointer<vmtkRenderer> ren,vtkSmartPointe
 	Image->GetExtent(wholeExtent);
 
 	Image->GetDimensions(dimension);
-	int a;
+	
 	
 	
 }
@@ -65,8 +67,8 @@ void vmtkImageViewer::initWidget()
 
 
 	initPlaneWidgetX();
-	//initPlaneWidgetY();
-	//initPlaneWidgetZ();
+	initPlaneWidgetY();
+	initPlaneWidgetZ();
 
 	
 		
@@ -94,7 +96,7 @@ void vmtkImageViewer::initPlaneWidgetX()
 		PlaneWidgetX->DisplayTextOff();
 
 		PlaneWidgetX->SetPicker(Picker);
-
+		//PlaneWidgetX->SetKeyPressActivationValue('x');
 		PlaneWidgetX->KeyPressActivationOff();
 
 		PlaneWidgetX->SetInteractor(Render->getRenderWindowInteractor());
@@ -103,7 +105,7 @@ void vmtkImageViewer::initPlaneWidgetX()
 		//¿ÉÑ¡µÄ
 		PlaneWidgetX->SetMarginSizeX(0.0);
 		PlaneWidgetX->SetMarginSizeY(0.0);
-		PlaneWidgetX->SetWindowLevel(0.0,0.0);
+		PlaneWidgetX->SetWindowLevel(10,10);
 		PlaneWidgetX->On();
         
 

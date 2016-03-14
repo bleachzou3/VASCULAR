@@ -7,10 +7,19 @@
 #include <vmtkImageViewer.h>
 #include <vtkImageViewer2.h>
 #include <vtkJPEGReader.h>
+#include <vtkImageActor.h>
 vascuview::vascuview(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
+	//下面两行代码为了测试用的
+	m_pImageViewer = vtkSmartPointer<vtkImageViewer2>::New();
+	m_pRenderder      = vtkSmartPointer< vtkRenderer >::New();
+
+	render = vtkSmartPointer<vmtkRenderer>::New();
+	
+	viewer = vtkSmartPointer<vmtkImageViewer>::New();
+	
 	connectActions();
 }
 
@@ -21,13 +30,11 @@ vascuview::~vascuview()
 
 void vascuview::connectActions()
 {
-	connect( ui.actionOpenImaFile, SIGNAL( triggered() ), this, SLOT( test() ));
+	connect( ui.actionOpenImaFile, SIGNAL( triggered() ), this, SLOT( openImaFileDirectory() ));
 }
 void vascuview::renderImageData()
 {
-	vtkSmartPointer<vmtkRenderer> render = vtkSmartPointer<vmtkRenderer>::New();
-	
-	vtkSmartPointer<vmtkImageViewer> viewer = vtkSmartPointer<vmtkImageViewer>::New();
+
 
 	viewer->setImage(data);
 	viewer->setRender(render,ui.qvtkWidget_master->GetRenderWindow());
@@ -55,10 +62,10 @@ void vascuview::openImaFileDirectory()
 	
 }
 
-//要删除
+//一开始为了测试做的看有没有走通，读取普通图片
 void vascuview::test()
 {
-	vtkSmartPointer<vtkImageViewer2> m_pImageViewer;
+	
 	QString filter;
 	filter = "JPEG image file (*.jpg *.jpeg)";
 
@@ -73,7 +80,7 @@ void vascuview::test()
 	// 用vtkJPEGReader读取JPG图像
 	vtkSmartPointer<vtkJPEGReader> reader = vtkSmartPointer<vtkJPEGReader>::New();
 	reader->SetFileName(fileName_str);
-	vtkSmartPointer< vtkRenderer > m_pRenderder      = vtkSmartPointer< vtkRenderer >::New();
+	
 	ui.qvtkWidget_master->GetRenderWindow()->AddRenderer(m_pRenderder);
 	// 将reader的输出作为m_pImageViewer的输入，并设置m_pImageViewer与渲染器m_pRenderer的关联
 	reader->Update();
@@ -84,5 +91,13 @@ void vascuview::test()
 	m_pImageViewer->SetRenderer(m_pRenderder);
 	m_pImageViewer->SetupInteractor(ui.qvtkWidget_master->GetInteractor());
 	m_pImageViewer->SetSliceOrientationToXY(); //默认就是这个方向的
-	//m_pImageViewer->GetImageActor()->InterpolateOff();
+
+	m_pImageViewer->GetImageActor()->InterpolateOff();
+
+	m_pRenderder->ResetCamera();
+    m_pRenderder->DrawOn();
+	
+
+	ui.qvtkWidget_master->GetRenderWindow()->Render();
+	
 }
