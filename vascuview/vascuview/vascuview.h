@@ -24,7 +24,13 @@ private:
 private slots:
 	//响应打开ima序列的槽函数
 	void  openImaFileDirectory();
+	
+	//测试读入图片
 	void test();
+
+
+	//测试能不能在QVTKWidget里面显示vtk一般的widget
+	void testWidget();
 private:
 	vtkSmartPointer<vtkImageData> data;
 	vtkSmartPointer<vmtkRenderer> render;	
@@ -37,8 +43,36 @@ private:
 
 
 	//下面两个变量但是为了测试读入图片用的
+	//----------------------------------------------
 	vtkSmartPointer<vtkImageViewer2> m_pImageViewer;
 	vtkSmartPointer< vtkRenderer > m_pRenderder;
+	//----------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	//下面的变量测试testWidget
+	//----------------------------------------------
+
+	vtkSmartPointer<vtkRenderer> renderer_testWidget;
+	//----------------------------------------------
+
 
 
 };

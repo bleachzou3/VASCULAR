@@ -106,6 +106,7 @@ void vmtkImageViewer::initPlaneWidgetX()
 		PlaneWidgetX->SetMarginSizeX(0.0);
 		PlaneWidgetX->SetMarginSizeY(0.0);
 		PlaneWidgetX->SetWindowLevel(10,10);
+		PlaneWidgetX->UpdatePlacement();
 		PlaneWidgetX->On();
         
 

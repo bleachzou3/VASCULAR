@@ -123,6 +123,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_vascuview.h" />
+    <ClInclude Include="PointPickerInteractorStyle.h" />
     <ClInclude Include="vmtkImageReader.h" />
     <ClInclude Include="vmtkImageViewer.h" />
     <ClInclude Include="vmtkRenderer.h" />

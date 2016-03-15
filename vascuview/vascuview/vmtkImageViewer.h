@@ -33,10 +33,13 @@ private:
 	*@author初始化Picker,PlaneWidgetX,PlaneWidgetY,PlaneWidgetZ
 	*/
 	void initWidget();
+
 	/*
 	*设置initPlaneWidgetX一些参数
 	*
 	*/
+
+
 	void initPlaneWidgetX();
 	void initPlaneWidgetY();
 	void initPlaneWidgetZ();

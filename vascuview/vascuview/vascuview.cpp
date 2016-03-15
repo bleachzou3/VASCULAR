@@ -8,17 +8,31 @@
 #include <vtkImageViewer2.h>
 #include <vtkJPEGReader.h>
 #include <vtkImageActor.h>
+#include <vtkSphereSource.h>
+#include <vtkPolyDataMapper.h>
+#include <vtkPointPicker.h>
+#include <PointPickerInteractorStyle.h>
 vascuview::vascuview(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
 	//下面两行代码为了测试用的
+	//------------------------------------------------------------
 	m_pImageViewer = vtkSmartPointer<vtkImageViewer2>::New();
 	m_pRenderder      = vtkSmartPointer< vtkRenderer >::New();
+	//---------------------------------------------------------------
+
+
 
 	render = vtkSmartPointer<vmtkRenderer>::New();
 	
 	viewer = vtkSmartPointer<vmtkImageViewer>::New();
+
+
+	//下面一行代码测试testWidget
+	//-------------------------------------
+	renderer_testWidget = vtkSmartPointer<vtkRenderer>::New();
+	//------------------------------------------
 	
 	connectActions();
 }
@@ -30,7 +44,7 @@ vascuview::~vascuview()
 
 void vascuview::connectActions()
 {
-	connect( ui.actionOpenImaFile, SIGNAL( triggered() ), this, SLOT( openImaFileDirectory() ));
+	connect( ui.actionOpenImaFile, SIGNAL( triggered() ), this, SLOT( openImaFileDirectory()));
 }
 void vascuview::renderImageData()
 {
@@ -100,4 +114,48 @@ void vascuview::test()
 
 	ui.qvtkWidget_master->GetRenderWindow()->Render();
 	
+}
+
+//测试QVTKWidget里面能不能加入vtk widget
+void vascuview::testWidget()
+{
+	vtkSmartPointer<vtkSphereSource> sphereSource = 
+		vtkSmartPointer<vtkSphereSource>::New();
+	sphereSource->Update();
+
+	// Create a mapper and actor
+	vtkSmartPointer<vtkPolyDataMapper> mapper = 
+		vtkSmartPointer<vtkPolyDataMapper>::New();
+	mapper->SetInputConnection(sphereSource->GetOutputPort());
+	vtkSmartPointer<vtkActor> actor = 
+		vtkSmartPointer<vtkActor>::New();
+	actor->SetMapper(mapper);
+
+	// Create a renderer, render window, and interactor
+
+	vtkSmartPointer<vtkRenderWindow> renderWindow = 
+		ui.qvtkWidget_master->GetRenderWindow();
+	renderWindow->Render();
+	renderWindow->SetWindowName("PointPicker");
+	renderWindow->AddRenderer(renderer_testWidget);
+
+	vtkSmartPointer<vtkPointPicker> pointPicker = 
+		vtkSmartPointer<vtkPointPicker>::New();
+
+	vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor = 
+		renderWindow->GetInteractor();
+	renderWindowInteractor->SetPicker(pointPicker);
+	
+
+	vtkSmartPointer<PointPickerInteractorStyle> style = 
+		vtkSmartPointer<PointPickerInteractorStyle>::New();
+	renderWindowInteractor->SetInteractorStyle( style );
+
+	// Add the actor to the scene
+	renderer_testWidget->AddActor(actor);
+	renderer_testWidget->SetBackground(1,1,1);
+
+	// Render and interact
+	renderWindow->Render();
+	renderWindowInteractor->Start();
 }

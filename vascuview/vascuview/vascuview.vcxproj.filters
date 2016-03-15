@@ -84,5 +84,8 @@
     <ClInclude Include="vmtkImageViewer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PointPickerInteractorStyle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
