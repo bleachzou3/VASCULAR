@@ -67,8 +67,8 @@ void vmtkImageViewer::initWidget()
 
 
 	initPlaneWidgetX();
-	initPlaneWidgetY();
-	initPlaneWidgetZ();
+	//initPlaneWidgetY();
+	//initPlaneWidgetZ();
 
 	
 		
@@ -82,31 +82,19 @@ void vmtkImageViewer::initPlaneWidgetX()
 
 	    PlaneWidgetX->SetResliceInterpolateToLinear();		
 		PlaneWidgetX->SetTextureInterpolate(TextureInterpolation);
-		PlaneWidgetX->SetUseContinuousCursor(ContinuousCursor);
-		
-		PlaneWidgetX->SetInputData(Image);
-		
-
+		PlaneWidgetX->SetUseContinuousCursor(ContinuousCursor);		
+		PlaneWidgetX->SetInputData(Image);		
 		PlaneWidgetX->SetPlaneOrientationToXAxes();
-		PlaneWidgetX->SetSliceIndex(wholeExtent[0]);
-
-		
-		
+		PlaneWidgetX->SetSliceIndex(wholeExtent[0]);	
 		//可选的
 		PlaneWidgetX->DisplayTextOff();
-
 		PlaneWidgetX->SetPicker(Picker);
 		//PlaneWidgetX->SetKeyPressActivationValue('x');
 		PlaneWidgetX->KeyPressActivationOff();
-
-		PlaneWidgetX->SetInteractor(Render->getRenderWindowInteractor());
-		
-
+		PlaneWidgetX->SetInteractor(Render->getRenderWindowInteractor());		
 		//可选的
 		PlaneWidgetX->SetMarginSizeX(0.0);
-		PlaneWidgetX->SetMarginSizeY(0.0);
-		PlaneWidgetX->SetWindowLevel(10,10);
-		PlaneWidgetX->UpdatePlacement();
+		PlaneWidgetX->SetMarginSizeY(0.0);		
 		PlaneWidgetX->On();
         
 
@@ -135,19 +123,21 @@ void vmtkImageViewer::initPlaneWidgetY()
 
 void vmtkImageViewer::initPlaneWidgetZ()
 {
+
 	    PlaneWidgetZ->SetResliceInterpolateToLinear();
         PlaneWidgetZ->SetTextureInterpolate(TextureInterpolation);
         PlaneWidgetZ->SetUseContinuousCursor(ContinuousCursor);
         PlaneWidgetZ->SetInputData(Image);
-        PlaneWidgetZ->SetPlaneOrientationToZAxes();
+        PlaneWidgetZ->SetPlaneOrientationToYAxes();
         PlaneWidgetZ->SetSliceIndex(wholeExtent[4]);
+
         PlaneWidgetZ->DisplayTextOff();
         PlaneWidgetZ->SetPicker(Picker);
         PlaneWidgetZ->KeyPressActivationOff();
         PlaneWidgetZ->SetLookupTable(PlaneWidgetX->GetLookupTable());
-        PlaneWidgetZ->SetInteractor(Render->getRenderWindowInteractor());
+		PlaneWidgetZ->SetInteractor(Render->getRenderWindowInteractor());
         PlaneWidgetZ->SetMarginSizeX(0.0);
         PlaneWidgetZ->SetMarginSizeY(0.0);
-        PlaneWidgetZ->On();
-
+  
+       PlaneWidgetZ->On();
 }

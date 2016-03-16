@@ -5,7 +5,7 @@
 int main(int argc, char *argv[])
 {
 	VTK_MODULE_INIT(vtkRenderingOpenGL);
-
+	VTK_MODULE_INIT(vtkRenderingFreeType);
 	QApplication a(argc, argv);
 	vascuview w;
 

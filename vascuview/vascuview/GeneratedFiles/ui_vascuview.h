@@ -30,10 +30,6 @@ class Ui_vascuviewClass
 public:
     QAction *actionOpenImaFile;
     QWidget *centralWidget;
-    QVTKWidget *qvtkWidget_x;
-    QVTKWidget *qvtkWidget_y;
-    QVTKWidget *qvtkWidget_z;
-    QVTKWidget *qvtkWidget_any;
     QFrame *line;
     QTabWidget *tabWidget;
     QWidget *tab;
@@ -56,18 +52,6 @@ public:
         actionOpenImaFile->setIcon(icon);
         centralWidget = new QWidget(vascuviewClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        qvtkWidget_x = new QVTKWidget(centralWidget);
-        qvtkWidget_x->setObjectName(QStringLiteral("qvtkWidget_x"));
-        qvtkWidget_x->setGeometry(QRect(100, 600, 321, 241));
-        qvtkWidget_y = new QVTKWidget(centralWidget);
-        qvtkWidget_y->setObjectName(QStringLiteral("qvtkWidget_y"));
-        qvtkWidget_y->setGeometry(QRect(470, 600, 321, 241));
-        qvtkWidget_z = new QVTKWidget(centralWidget);
-        qvtkWidget_z->setObjectName(QStringLiteral("qvtkWidget_z"));
-        qvtkWidget_z->setGeometry(QRect(830, 600, 321, 241));
-        qvtkWidget_any = new QVTKWidget(centralWidget);
-        qvtkWidget_any->setObjectName(QStringLiteral("qvtkWidget_any"));
-        qvtkWidget_any->setGeometry(QRect(1210, 600, 321, 241));
         line = new QFrame(centralWidget);
         line->setObjectName(QStringLiteral("line"));
         line->setGeometry(QRect(490, 0, 20, 581));

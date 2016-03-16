@@ -39,7 +39,7 @@ void vmtkRenderer::Initialize(vtkSmartPointer<vtkRenderWindow> renw)
 	//RenderWindow->SetLineSmoothing();
 	
 	//RenderWindow->SetPolygonSmoothing();
-
+	//renw->SetSize(800,600);
 	RenderWindowInteractor->SetInteractorStyle(interactorCamera);
 	RenderWindowInteractor->SetRenderWindow(renw);
 

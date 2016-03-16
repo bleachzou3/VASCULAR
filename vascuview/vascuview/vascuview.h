@@ -31,6 +31,12 @@ private slots:
 
 	//测试能不能在QVTKWidget里面显示vtk一般的widget
 	void testWidget();
+
+	//测试一下vtkvmtkImagePlaneWidget简单版本，就是不是以面向对象的方式组织而是以直接读取的方式
+	void testSimplePlaget();
+
+	//测试单个vtkImagePlane是否显示
+	void testSingleVtkImagePlane();
 private:
 	vtkSmartPointer<vtkImageData> data;
 	vtkSmartPointer<vmtkRenderer> render;	
@@ -74,7 +80,17 @@ private:
 	//----------------------------------------------
 
 
+	//下面的变量测试testSimpleWidget();
+	//------------------------------------------------------
+	vtkSmartPointer<vtkRenderer> renderer_testSimpleWidget;
+	//----------------------------------------------------
+
+
+	//下面的变量测试单个testSingleVtkImagePlane
+
+	vtkSmartPointer<vtkRenderer> renderer_testVtkImagePlane;
 
 };
+
 
 #endif // VASCUVIEW_H
