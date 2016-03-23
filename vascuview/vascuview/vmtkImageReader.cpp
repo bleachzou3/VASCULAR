@@ -19,7 +19,7 @@ vmtkImageReader::~vmtkImageReader()
 vtkSmartPointer<vtkImageData> vmtkImageReader::ReadDICOMDirectory(const char* directoryName,int autoOrientImage)
 {
 
-	
+
 	vtkSmartPointer<vtkvmtkDICOMImageReader> reader = vtkSmartPointer<vtkvmtkDICOMImageReader>::New();
 
 	reader->SetDirectoryName(directoryName);

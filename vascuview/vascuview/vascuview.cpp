@@ -14,6 +14,8 @@
 #include <PointPickerInteractorStyle.h>
 #include <vtkStreamingDemandDrivenPipeline.h>
 #include <vtkInformation.h>
+#include <vtkAlgorithm.h>
+#include <vtkImageReslice.h>
 vascuview::vascuview(QWidget *parent)
 	: QMainWindow(parent)
 {
@@ -180,7 +182,7 @@ void vascuview::testSimplePlaget()
 	vtkSmartPointer<vtkvmtkDICOMImageReader> reader = vtkSmartPointer<vtkvmtkDICOMImageReader>::New();
 	reader->SetDirectoryName("E:/patientData/TAN_RUMI");
 	reader->Update();
-	vtkSmartPointer<vtkImageData> Image = reader->GetOutput();
+	vtkImageData* Image = reader->GetOutput();
 
 	vtkSmartPointer<vtkImagePlaneWidget> PlaneWidgetX = vtkSmartPointer<vtkImagePlaneWidget>::New();
 	vtkSmartPointer<vtkCellPicker> Picker = vtkSmartPointer<vtkCellPicker>::New();	
@@ -197,19 +199,35 @@ void vascuview::testSimplePlaget()
 	Image->GetExtent(wholeExtent);
 	
 	//vtkStreamingDemandDrivenPipeline::WHOLE_EXTENT();
-	vtkSmartPointer<vtkInformation> inf = vtkSmartPointer<vtkInformation>::New();
-	vtkStreamingDemandDrivenPipeline::SetWholeExtent(vtkSmartPointer<vtkInformation>::New(),wholeExtent);
-
+	//vtkSmartPointer<vtkInformation> inf = vtkSmartPointer<vtkInformation>::New();
+	//vtkStreamingDemandDrivenPipeline::SetWholeExtent(vtkSmartPointer<vtkInformation>::New(),wholeExtent);
+	
 	
 
-	reader->Update();
-
+	//reader->Update();
+ 
 
 	PlaneWidgetX->SetResliceInterpolateToLinear();		
 	PlaneWidgetX->SetTextureInterpolate(TextureInterpolation);
 	PlaneWidgetX->SetUseContinuousCursor(ContinuousCursor);		
+	
 
 	PlaneWidgetX->SetInputData(Image);
+	
+
+
+
+  /*
+  double origin[3];
+  outInfo->Get(vtkDataObject::ORIGIN(), origin);
+  double spacing[3];
+  outInfo->Get(vtkDataObject::SPACING(), spacing);
+  */
+	
+
+
+
+
 
 
 	PlaneWidgetX->SetPlaneOrientationToXAxes();
