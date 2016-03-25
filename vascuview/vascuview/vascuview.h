@@ -33,7 +33,7 @@ private slots:
 	void testWidget();
 
 	//测试一下vtkvmtkImagePlaneWidget简单版本，就是不是以面向对象的方式组织而是以直接读取的方式
-	void testSimplePlaget();
+	void SimplePlaget();
 
 	//测试单个vtkImagePlane是否显示
 	void testSingleVtkImagePlane();

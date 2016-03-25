@@ -20,7 +20,7 @@
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_vascuview_t {
     QByteArrayData data[7];
-    char stringdata0[89];
+    char stringdata0[85];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -34,13 +34,12 @@ QT_MOC_LITERAL(1, 10, 20), // "openImaFileDirectory"
 QT_MOC_LITERAL(2, 31, 0), // ""
 QT_MOC_LITERAL(3, 32, 4), // "test"
 QT_MOC_LITERAL(4, 37, 10), // "testWidget"
-QT_MOC_LITERAL(5, 48, 16), // "testSimplePlaget"
-QT_MOC_LITERAL(6, 65, 23) // "testSingleVtkImagePlane"
+QT_MOC_LITERAL(5, 48, 12), // "SimplePlaget"
+QT_MOC_LITERAL(6, 61, 23) // "testSingleVtkImagePlane"
 
     },
     "vascuview\0openImaFileDirectory\0\0test\0"
-    "testWidget\0testSimplePlaget\0"
-    "testSingleVtkImagePlane"
+    "testWidget\0SimplePlaget\0testSingleVtkImagePlane"
 };
 #undef QT_MOC_LITERAL
 
@@ -83,7 +82,7 @@ void vascuview::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
         case 0: _t->openImaFileDirectory(); break;
         case 1: _t->test(); break;
         case 2: _t->testWidget(); break;
-        case 3: _t->testSimplePlaget(); break;
+        case 3: _t->SimplePlaget(); break;
         case 4: _t->testSingleVtkImagePlane(); break;
         default: ;
         }

@@ -16,6 +16,7 @@
 #include <vtkInformation.h>
 #include <vtkAlgorithm.h>
 #include <vtkImageReslice.h>
+#include <vtkMetaImageReader.h>
 vascuview::vascuview(QWidget *parent)
 	: QMainWindow(parent)
 {
@@ -58,7 +59,7 @@ vascuview::~vascuview()
 
 void vascuview::connectActions()
 {
-	connect( ui.actionOpenImaFile, SIGNAL( triggered() ), this, SLOT( testSimplePlaget()));
+	connect( ui.actionOpenImaFile, SIGNAL( triggered() ), this, SLOT( SimplePlaget()));
 }
 void vascuview::renderImageData()
 {
@@ -176,18 +177,35 @@ void vascuview::testWidget()
 
 
 //测试直接以最简单的形式组织
-void vascuview::testSimplePlaget()
+void vascuview::SimplePlaget()
 {
 	
 	vtkSmartPointer<vtkvmtkDICOMImageReader> reader = vtkSmartPointer<vtkvmtkDICOMImageReader>::New();
+	//reader->SetFileDimensionality(3);
+	//reader->SetDataScalarTypeToUnsignedChar();
+	//reader->SetDataByteOrderToBigEndian();
 	reader->SetDirectoryName("E:/patientData/TAN_RUMI");
 	reader->Update();
-	vtkImageData* Image = reader->GetOutput();
+	
 
+	/*
+	vtkSmartPointer<vtkMetaImageReader> reader =
+	vtkSmartPointer<vtkMetaImageReader>::New();
+	reader->SetFileName("E:/brain.mhd");
+	reader->Update();
+	*/
+	vtkImageData* Image = reader->GetOutput();
+	
 	vtkSmartPointer<vtkImagePlaneWidget> PlaneWidgetX = vtkSmartPointer<vtkImagePlaneWidget>::New();
-	vtkSmartPointer<vtkCellPicker> Picker = vtkSmartPointer<vtkCellPicker>::New();	
 	vtkSmartPointer<vtkImagePlaneWidget> PlaneWidgetY = vtkSmartPointer<vtkImagePlaneWidget>::New();
 	vtkSmartPointer<vtkImagePlaneWidget> PlaneWidgetZ = vtkSmartPointer<vtkImagePlaneWidget>::New();
+	/*
+	vtkSmartPointer<vtkvmtkImagePlaneWidget> PlaneWidgetX = vtkSmartPointer<vtkvmtkImagePlaneWidget>::New();
+	vtkSmartPointer<vtkvmtkImagePlaneWidget> PlaneWidgetY = vtkSmartPointer<vtkvmtkImagePlaneWidget>::New();
+	vtkSmartPointer<vtkvmtkImagePlaneWidget> PlaneWidgetZ = vtkSmartPointer<vtkvmtkImagePlaneWidget>::New();
+	*/
+
+	vtkSmartPointer<vtkCellPicker> Picker = vtkSmartPointer<vtkCellPicker>::New();	
 	vtkSmartPointer<vtkvmtkInteractorStyleTrackballCamera> interactorCamera = vtkSmartPointer<vtkvmtkInteractorStyleTrackballCamera>::New();
 	ui.qvtkWidget_master->GetRenderWindow()->AddRenderer(renderer_testSimpleWidget);
 
@@ -196,40 +214,17 @@ void vascuview::testSimplePlaget()
 	int Display = 1;
 	int OwnRenderer = 0;
 	int wholeExtent[6];
-	Image->GetExtent(wholeExtent);
-	
-	//vtkStreamingDemandDrivenPipeline::WHOLE_EXTENT();
-	//vtkSmartPointer<vtkInformation> inf = vtkSmartPointer<vtkInformation>::New();
-	//vtkStreamingDemandDrivenPipeline::SetWholeExtent(vtkSmartPointer<vtkInformation>::New(),wholeExtent);
-	
-	
+	int dimesion[3];
 
-	//reader->Update();
- 
 
+	Image->GetDimensions(dimesion);
+	Image->SetDimensions(dimesion);
 	PlaneWidgetX->SetResliceInterpolateToLinear();		
 	PlaneWidgetX->SetTextureInterpolate(TextureInterpolation);
 	PlaneWidgetX->SetUseContinuousCursor(ContinuousCursor);		
 	
 
 	PlaneWidgetX->SetInputData(Image);
-	
-
-
-
-  /*
-  double origin[3];
-  outInfo->Get(vtkDataObject::ORIGIN(), origin);
-  double spacing[3];
-  outInfo->Get(vtkDataObject::SPACING(), spacing);
-  */
-	
-
-
-
-
-
-
 	PlaneWidgetX->SetPlaneOrientationToXAxes();
 	PlaneWidgetX->SetSliceIndex(wholeExtent[0]);	
 	//可选的
@@ -237,18 +232,12 @@ void vascuview::testSimplePlaget()
 	PlaneWidgetX->SetPicker(Picker);
 	//PlaneWidgetX->SetKeyPressActivationValue('x');
 	PlaneWidgetX->KeyPressActivationOff();
-
-
 	ui.qvtkWidget_master->GetRenderWindow()->GetInteractor()->SetInteractorStyle(interactorCamera);
 	PlaneWidgetX->SetInteractor(ui.qvtkWidget_master->GetRenderWindow()->GetInteractor());		
-	//可选的
 	PlaneWidgetX->SetMarginSizeX(0.0);
 	PlaneWidgetX->SetMarginSizeY(0.0);		
-	//PlaneWidgetX->On();
-
-
-
 	
+
 
 
 	PlaneWidgetY->SetResliceInterpolateToLinear();
@@ -266,40 +255,39 @@ void vascuview::testSimplePlaget()
     PlaneWidgetY->SetMarginSizeX(0.0);
     PlaneWidgetY->SetMarginSizeY(0.0);
   
-   // PlaneWidgetY->On();
+  
 
 
-		PlaneWidgetZ->SetResliceInterpolateToLinear();
-        PlaneWidgetZ->SetTextureInterpolate(TextureInterpolation);
-        PlaneWidgetZ->SetUseContinuousCursor(ContinuousCursor);
-        PlaneWidgetZ->SetInputData(Image);
-        PlaneWidgetZ->SetPlaneOrientationToZAxes();
-        PlaneWidgetZ->SetSliceIndex(wholeExtent[4]);
+	PlaneWidgetZ->SetResliceInterpolateToLinear();
+    PlaneWidgetZ->SetTextureInterpolate(TextureInterpolation);
+    PlaneWidgetZ->SetUseContinuousCursor(ContinuousCursor);
+    PlaneWidgetZ->SetInputData(Image);
+    PlaneWidgetZ->SetPlaneOrientationToZAxes();
+    PlaneWidgetZ->SetSliceIndex(wholeExtent[4]);
 
-        PlaneWidgetZ->DisplayTextOff();
-        PlaneWidgetZ->SetPicker(Picker);
-        PlaneWidgetZ->KeyPressActivationOff();
-        PlaneWidgetZ->SetLookupTable(PlaneWidgetX->GetLookupTable());
-		PlaneWidgetZ->SetInteractor(ui.qvtkWidget_master->GetRenderWindow()->GetInteractor());
-        PlaneWidgetZ->SetMarginSizeX(0.0);
-        PlaneWidgetZ->SetMarginSizeY(0.0);
+    PlaneWidgetZ->DisplayTextOff();
+    PlaneWidgetZ->SetPicker(Picker);
+    PlaneWidgetZ->KeyPressActivationOff();
+    PlaneWidgetZ->SetLookupTable(PlaneWidgetX->GetLookupTable());
+	PlaneWidgetZ->SetInteractor(ui.qvtkWidget_master->GetRenderWindow()->GetInteractor());
+    PlaneWidgetZ->SetMarginSizeX(0.0);
+    PlaneWidgetZ->SetMarginSizeY(0.0);
   
        //PlaneWidgetZ->On();
 
 	   
 
-  //double origin[3] = {0, 1,0};
-  //planeWidget->SetOrigin(origin);
- //planeWidget->UpdatePlacement();
-	   //renderer_testSimpleWidget->SetBackground(255,251,240);
-	   ui.qvtkWidget_master->GetRenderWindow()->GetInteractor()->Initialize();
-	//ui.qvtkWidget_master->GetRenderWindow()->GetInteractor()->Start();
+
+	renderer_testSimpleWidget->SetBackground(255,251,240);
+	ui.qvtkWidget_master->GetRenderWindow()->GetInteractor()->Initialize();
 	ui.qvtkWidget_master->GetRenderWindow()->Render();
 
 	PlaneWidgetX->On();
 	PlaneWidgetY->On();
 	PlaneWidgetZ->On();
-     
+	PlaneWidgetX->InteractionOn();
+	PlaneWidgetY->InteractionOn();
+	PlaneWidgetZ->InteractionOn();
 	
 	 
 }

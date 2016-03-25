@@ -67,8 +67,8 @@ void vmtkImageViewer::initWidget()
 
 
 	initPlaneWidgetX();
-	//initPlaneWidgetY();
-	//initPlaneWidgetZ();
+	initPlaneWidgetY();
+	initPlaneWidgetZ();
 
 	
 		
@@ -128,7 +128,7 @@ void vmtkImageViewer::initPlaneWidgetZ()
         PlaneWidgetZ->SetTextureInterpolate(TextureInterpolation);
         PlaneWidgetZ->SetUseContinuousCursor(ContinuousCursor);
         PlaneWidgetZ->SetInputData(Image);
-        PlaneWidgetZ->SetPlaneOrientationToYAxes();
+        PlaneWidgetZ->SetPlaneOrientationToZAxes();
         PlaneWidgetZ->SetSliceIndex(wholeExtent[4]);
 
         PlaneWidgetZ->DisplayTextOff();
@@ -139,5 +139,5 @@ void vmtkImageViewer::initPlaneWidgetZ()
         PlaneWidgetZ->SetMarginSizeX(0.0);
         PlaneWidgetZ->SetMarginSizeY(0.0);
   
-       PlaneWidgetZ->On();
+        PlaneWidgetZ->On();
 }

@@ -41,7 +41,7 @@ void vmtkRenderer::Initialize(vtkSmartPointer<vtkRenderWindow> renw)
 	//RenderWindow->SetPolygonSmoothing();
 	//renw->SetSize(800,600);
 	RenderWindowInteractor->SetInteractorStyle(interactorCamera);
-	RenderWindowInteractor->SetRenderWindow(renw);
+	//RenderWindowInteractor->SetRenderWindow(renw);
 
 
 
@@ -54,18 +54,18 @@ vtkSmartPointer<vtkRenderWindowInteractor>  vmtkRenderer::getRenderWindowInterac
 
 void  vmtkRenderer::Render(int interactive)
 {
-	
+	/*
 	if( interactive)
 	{
 		RenderWindowInteractor->Initialize();
 	}
-
-
+	*/
+	/*
 	if(interactive)
 		RenderWindowInteractor->Start();
-	
-	//Renderer->DrawOn();
-	//Renderer->ResetCamera();
+	*/
+	Renderer->DrawOn();
+	Renderer->ResetCamera();
 	RenderWindow->Render();
 }
 
