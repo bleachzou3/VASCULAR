@@ -17,6 +17,8 @@
 #include <vtkAlgorithm.h>
 #include <vtkImageReslice.h>
 #include <vtkMetaImageReader.h>
+#include <vtkImageFlip.h>
+#include <vtkStringArray.h>
 vascuview::vascuview(QWidget *parent)
 	: QMainWindow(parent)
 {
@@ -49,6 +51,12 @@ vascuview::vascuview(QWidget *parent)
 	//----------------------------------------------------------------
 	renderer_testVtkImagePlane = vtkSmartPointer<vtkRenderer>::New();
 	//---------------------------------------------------------------------
+
+
+
+	 PlaneWidgetX = vtkSmartPointer<vtkImagePlaneWidget>::New();
+	 PlaneWidgetY = vtkSmartPointer<vtkImagePlaneWidget>::New();
+	 PlaneWidgetZ = vtkSmartPointer<vtkImagePlaneWidget>::New();
 	connectActions();
 }
 
@@ -184,21 +192,78 @@ void vascuview::SimplePlaget()
 	//reader->SetFileDimensionality(3);
 	//reader->SetDataScalarTypeToUnsignedChar();
 	//reader->SetDataByteOrderToBigEndian();
+	//reader->SetDebug(true);
+	reader->SetAutoOrientImage(1);
 	reader->SetDirectoryName("E:/patientData/TAN_RUMI");
 	reader->Update();
-	
 
+	//reader->UpdateWholeExtent();
+	int Flip[3] = {1,0,1};
+	
 	/*
 	vtkSmartPointer<vtkMetaImageReader> reader =
 	vtkSmartPointer<vtkMetaImageReader>::New();
 	reader->SetFileName("E:/brain.mhd");
 	reader->Update();
 	*/
-	vtkImageData* Image = reader->GetOutput();
+	/*
+	vtkSmartPointer<vtkStringArray> fileArray = vtkSmartPointer<vtkStringArray>::New();
+	char fileName[500];
+	for(int i = 1; i <= 281;i++)
+	{
+		sprintf(fileName,"E:/ZHANG_XIANGJU/ZHANG_XIANG_JU_BAH_03434948_F_64Y.CT.CARDIAC_N_FLASH_CARDIO_(ADULT).0006.%04d.2013.08.29.19.12.43.140625.170674642.jpg");
+		vtkstd::string fileStr(fileName);
+		fileArray->InsertNextValue(fileStr);
+	}
+
+	vtkSmartPointer<vtkJPEGReader> reader = vtkSmartPointer<vtkJPEGReader>::New();
+	reader->SetFileNames(fileArray);
+	*/
+//	Image->AllocateScalars(VTK_FLOAT,3);
+	Image= reader->GetOutput();
+	/*
+	int temp = Image->GetNumberOfScalarComponents();
+	//Image->SetScalarType();
+	//Image->AllocateScalars(VTK_FLOAT,3);
+	vtkSmartPointer<vtkImageFlip> flipFilter = vtkSmartPointer<vtkImageFlip>::New(); 
+	flipFilter->SetDebug(true);
+	    if (Flip[0] == 1 || Flip[1] == 1 || Flip[2] == 1)
+		{
+            vtkImageData *temp0 = Image;
+			int cnt =  temp0->GetReferenceCount();
+			vtkImageData* temp1;
+            if (Flip[0] == 1)
+			{
+                //flipFilter = vtk.vtkImageFlip();
+				flipFilter->SetInputData(temp0);
+                flipFilter->SetFilteredAxis(0);
+                flipFilter->Update();
+				temp1 = flipFilter->GetOutput();
+			}
+            //temp1 = temp0
+            if (Flip[1] == 1)
+			{
+				//flipFilter = vtk.vtkImageFlip();
+                flipFilter->SetInputData(Image);
+                flipFilter->SetFilteredAxis(1);
+                flipFilter->Update();
+                Image = flipFilter->GetOutput();
+			}
+            //temp2 = temp1
+            if (Flip[2] == 1 )
+			{
+                //flipFilter = vtk.vtkImageFlip()
+				flipFilter->SetInputData(Image);
+                flipFilter->SetFilteredAxis(2);
+                flipFilter->Update();
+				Image = flipFilter->GetOutput();
+			}
+            //self.Image = temp2
+		}
+	*/
+
 	
-	vtkSmartPointer<vtkImagePlaneWidget> PlaneWidgetX = vtkSmartPointer<vtkImagePlaneWidget>::New();
-	vtkSmartPointer<vtkImagePlaneWidget> PlaneWidgetY = vtkSmartPointer<vtkImagePlaneWidget>::New();
-	vtkSmartPointer<vtkImagePlaneWidget> PlaneWidgetZ = vtkSmartPointer<vtkImagePlaneWidget>::New();
+
 	/*
 	vtkSmartPointer<vtkvmtkImagePlaneWidget> PlaneWidgetX = vtkSmartPointer<vtkvmtkImagePlaneWidget>::New();
 	vtkSmartPointer<vtkvmtkImagePlaneWidget> PlaneWidgetY = vtkSmartPointer<vtkvmtkImagePlaneWidget>::New();
@@ -223,8 +288,10 @@ void vascuview::SimplePlaget()
 	PlaneWidgetX->SetTextureInterpolate(TextureInterpolation);
 	PlaneWidgetX->SetUseContinuousCursor(ContinuousCursor);		
 	
-
+	//PlaneWidgetX->SetInputConnection(reader->GetOutputPort());
 	PlaneWidgetX->SetInputData(Image);
+	
+	
 	PlaneWidgetX->SetPlaneOrientationToXAxes();
 	PlaneWidgetX->SetSliceIndex(wholeExtent[0]);	
 	//¿ÉÑ¡µÄ
@@ -243,7 +310,9 @@ void vascuview::SimplePlaget()
 	PlaneWidgetY->SetResliceInterpolateToLinear();
     PlaneWidgetY->SetTextureInterpolate(TextureInterpolation);
     PlaneWidgetY->SetUseContinuousCursor(ContinuousCursor);
+	//PlaneWidgetY->SetInputConnection(reader->GetOutputPort());
     PlaneWidgetY->SetInputData(Image);
+	
     PlaneWidgetY->SetPlaneOrientationToYAxes();
     PlaneWidgetY->SetSliceIndex(wholeExtent[2]);
 
@@ -251,6 +320,7 @@ void vascuview::SimplePlaget()
     PlaneWidgetY->SetPicker(Picker);
     PlaneWidgetY->KeyPressActivationOff();
     PlaneWidgetY->SetLookupTable(PlaneWidgetX->GetLookupTable());
+
 	PlaneWidgetY->SetInteractor(ui.qvtkWidget_master->GetRenderWindow()->GetInteractor());
     PlaneWidgetY->SetMarginSizeX(0.0);
     PlaneWidgetY->SetMarginSizeY(0.0);
@@ -261,7 +331,9 @@ void vascuview::SimplePlaget()
 	PlaneWidgetZ->SetResliceInterpolateToLinear();
     PlaneWidgetZ->SetTextureInterpolate(TextureInterpolation);
     PlaneWidgetZ->SetUseContinuousCursor(ContinuousCursor);
+	//PlaneWidgetZ->SetInputConnection(reader->GetOutputPort());
     PlaneWidgetZ->SetInputData(Image);
+
     PlaneWidgetZ->SetPlaneOrientationToZAxes();
     PlaneWidgetZ->SetSliceIndex(wholeExtent[4]);
 

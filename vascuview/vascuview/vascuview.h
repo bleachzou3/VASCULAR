@@ -90,6 +90,15 @@ private:
 
 	vtkSmartPointer<vtkRenderer> renderer_testVtkImagePlane;
 
+
+
+
+	vtkSmartPointer<vtkImagePlaneWidget> PlaneWidgetX;
+	vtkSmartPointer<vtkImagePlaneWidget> PlaneWidgetY;
+	vtkSmartPointer<vtkImagePlaneWidget> PlaneWidgetZ;
+
+	vtkImageData* Image ;
+
 };
 
 
